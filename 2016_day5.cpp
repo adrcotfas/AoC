@@ -4,10 +4,10 @@
 
 int main() {
 	std::string password;
-	for (long i = 0; i < std::numeric_limits<long>::max(); ++i) {		
-		std::string text = "cxdnnyjw" + std::to_string(i);
-		std::string digest = md5(text);		
-		if (std::string{ digest.begin(), digest.begin() + 5 } == "00000") {
+	for (unsigned int i = 0; i < std::numeric_limits<long>::max(); ++i) {		
+		const std::string text = "cxdnnyjw" + std::to_string(i);
+		const std::string digest = md5(text);
+		if (digest.substr(0, 5) == "00000") {
 			password += digest.at(5);
 		}
 		if (password.size() == 8) {
@@ -15,12 +15,14 @@ int main() {
 		}
 	}
 
+	std::cout << "Password: " << password << std::endl;
+
 	std::string secondPassword = "--------";
 	int count = 0;
-	for (long i = 0; i < std::numeric_limits<long>::max(); ++i) {
-		std::string text = "cxdnnyjw" + std::to_string(i);
-		std::string digest = md5(text);
-		if (std::string{ digest.begin(), digest.begin() + 5 } == "00000") {
+	for (unsigned int i = 0; i < std::numeric_limits<long>::max(); ++i) {
+		const std::string text = "cxdnnyjw" + std::to_string(i);
+		const std::string digest = md5(text);
+		if (digest.substr(0, 5) == "00000") {
 			int digit = digest.at(5) - '0';
 			if (digit > 7) {
 				continue;
@@ -34,6 +36,8 @@ int main() {
 			break;
 		}
 	}
+
+	std::cout << "Second password: " << secondPassword << std::endl;
 
 	return 0;
 }
